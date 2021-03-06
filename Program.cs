@@ -27,19 +27,15 @@ namespace codeTest
             {
                 foreach (Common itemC in Lcommon)
                 {
-                    List<PtfTerminal> Lptf_Terminal = itemC.ptf_Terminal;
-                    foreach (PtfTerminal itemPT in Lptf_Terminal)
+                    foreach (PtfTerminal itemPT in itemC.ptf_Terminal)
                     {
                         if (itemPT.help != null)
                         {
-                            List<Help> Lhelp = itemPT.help;
-
-                            foreach (Help itemHP in Lhelp)
+                            foreach (Help itemHP in itemPT.help)
                             {
                                 if (itemHP.en_GB != null)
                                 {
-                                    List<EnGB> Len_GB = itemHP.en_GB;
-                                    foreach (EnGB itemGB in Len_GB)
+                                    foreach (EnGB itemGB in itemHP.en_GB)
                                     {
                                         leaf = new Leaf(itemGB.md5, itemGB.name, itemGB.required);
                                         checkLeaf(leaf);
@@ -53,15 +49,19 @@ namespace codeTest
 
                         if (itemPT.languages != null)
                         {
-                            List<Language> Llanguages = itemPT.languages;
-
-                            foreach (Language itemL in Llanguages)
+                            foreach (Language itemL in itemPT.languages)
                             {
                                 leaf = new Leaf(itemL.md5, itemL.name, itemL.required);
                                 checkLeaf(leaf);
                             }
                         }
                     }
+
+                    /*List<Src> Lsrc = itemC.src;
+                    foreach (Src itmSrc in Lsrc)
+                    {
+
+                    }*/
                 }
             }
             catch (Exception)
