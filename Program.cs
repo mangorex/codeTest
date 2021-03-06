@@ -57,11 +57,24 @@ namespace codeTest
                         }
                     }
 
-                    /*List<Src> Lsrc = itemC.src;
-                    foreach (Src itmSrc in Lsrc)
+                    if (itemC.src != null)
                     {
+                        foreach (Src itemSrc in itemC.src)
+                        {
+                            
+                            foreach (Fizzbuzz itemFbz in itemSrc.fizzbuzz)
+                            {
+                                leaf = new Leaf(itemFbz.md5, itemFbz.name, itemFbz.required);
+                                checkLeaf(leaf);
+                            }
 
-                    }*/
+                            foreach (CampoDeMina itemCpMin in itemSrc.campoDeMinas)
+                            {
+                                leaf = new Leaf(itemCpMin.md5, itemCpMin.name, itemCpMin.required);
+                                checkLeaf(leaf);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception)
