@@ -9,8 +9,6 @@ namespace codeTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
             var url = "http://127.0.0.1/latest.json";
             var currencyRates = _download_serialized_json_data<CurrencyRates>(url); 
             
@@ -25,12 +23,12 @@ namespace codeTest
             }
         }
 
-         private static T _download_serialized_json_data<T>(string url) where T : new() {
+         public static T _download_serialized_json_data<T>(string url) where T : new() {
             using (var w = new WebClient()) {
                 var json_data = string.Empty;
                 // attempt to download JSON data as a string
                 try {
-                json_data = w.DownloadString(url);
+                    json_data = w.DownloadString(url);
                 }
                 catch (Exception) {}
                 // if string with JSON data is not empty, deserialize it to class and return its instance 
