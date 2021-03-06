@@ -9,17 +9,21 @@ namespace codeTest
     {
         static void Main(string[] args)
         {
-            var url = "http://127.0.0.1/latest.json";
-            var currencyRates = _download_serialized_json_data<CurrencyRates>(url); 
+            var url = "http://127.0.0.1/codetest.json";
+            var root = _download_serialized_json_data<Root>(url); 
             
-            Console.WriteLine(currencyRates.Disclaimer);
-            Console.WriteLine(currencyRates.License);
-            Console.WriteLine(currencyRates.TimeStamp.ToString());
-            Console.WriteLine(currencyRates.Base);
+            List<P6> p6 = root.p6;
 
-            foreach(KeyValuePair<string, decimal> entry in currencyRates.Rates)
+            foreach(P6 itemP in p6)
             {
-                Console.WriteLine(entry.Key + " " + entry.Value);
+                List<Common> common = itemP.common;
+                foreach(Common itemC in common)
+                {
+                    bool required = itemC.required;
+                    string name = itemC.name;
+                    string md5 = itemC.md5;
+                    Console.WriteLine(required.ToString() + " " + name + " " + md5);
+                }
             }
         }
 
