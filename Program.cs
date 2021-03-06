@@ -9,21 +9,37 @@ namespace codeTest
     {
         static void Main(string[] args)
         {
-            var url = "http://127.0.0.1/codetest.json";
+            var url = "http://127.0.0.1/assetsTree.json";
             var root = _download_serialized_json_data<Root>(url); 
             
-            List<P6> p6 = root.p6;
+            /*List<Common> Lcommon = root.common;
+            List<Fg> Lfg = root.fg;*/
+            List<P6> Lp6 = root.p6;
+            var myCount = 0;
 
-            foreach(P6 itemP in p6)
+            Console.WriteLine(root.p6.Count.ToString());
+
+            foreach(P6 itemP in Lp6)
             {
-                List<Common> common = itemP.common;
-                foreach(Common itemC in common)
+                List<Common> Lcommon2 = itemP.common;
+                List<Lang> Llang= itemP.lang;
+                bool required = itemP.required;
+
+                if (required){
+                    string name = itemP.name;
+                    string md5 = itemP.md5;
+                    Console.WriteLine(required.ToString() + " " + name + " " + md5 + ", element: " + myCount);
+                }
+
+                /*foreach(Common itemC in Lcommon2)
                 {
                     bool required = itemC.required;
                     string name = itemC.name;
                     string md5 = itemC.md5;
                     Console.WriteLine(required.ToString() + " " + name + " " + md5);
-                }
+                }*/
+
+                myCount++;
             }
         }
 
