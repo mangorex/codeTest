@@ -4726,7 +4726,7 @@
       "Microsoft.NET.Test.Sdk >= 16.9.1",
       "Moq >= 4.16.1",
       "Newtonsoft.Json >= 12.0.3",
-      "Nunit >= *",
+      "Nunit >= 3.13.1",
       "Nunit3TestAdapter >= 3.17.0"
     ]
   },
@@ -4779,7 +4779,7 @@
           },
           "Nunit": {
             "target": "Package",
-            "version": "[*, )"
+            "version": "[3.13.1, )"
           },
           "Nunit3TestAdapter": {
             "target": "Package",
