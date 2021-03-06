@@ -12,19 +12,19 @@ namespace UnitTesting.GettingStarted.Tests
     {
 
         [Test]
-        public void Test_download_serialized_json_data_Count()
+        public void TestDownloadSerializedJsonP6BasicCount()
         {
             var url = "http://127.0.0.1/assetsTree.json";
-            var root = Program._download_serialized_json_data<Root>(url); 
+            var root = Program.downloadSerializedJson<Root>(url); 
             Assert.AreEqual(3, root.p6.Count);
         }
 
 
         [Test]
-        public void Test_download_serialized_json_data_required()
+        public void TestDownloadSerializedJsonP6Basic()
         {
             var url = "http://127.0.0.1/assetsTree.json";
-            var root = Program._download_serialized_json_data<Root>(url); 
+            var root = Program.downloadSerializedJson<Root>(url); 
             Console.WriteLine(root.p6.Count.ToString());
             Assert.AreEqual(true, root.p6[2].required);
         }

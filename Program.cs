@@ -9,8 +9,10 @@ namespace codeTest
     {
         static void Main(string[] args)
         {
+            Leaf leaf; 
+
             var url = "http://127.0.0.1/assetsTree.json";
-            var root = _download_serialized_json_data<Root>(url); 
+            var root = downloadSerializedJson<Root>(url); 
             
             List<Common> Lcommon = root.common;
             // List<Fg> Lfg = root.fg;
@@ -23,23 +25,16 @@ namespace codeTest
                 List<PtfTerminal> Lptf_Terminal = itemC.ptf_Terminal;
                 foreach(PtfTerminal itemPT in Lptf_Terminal)
                 {
-                    /*List<object> Lskins = itemPT.skins;
-                    List<Help> Lhelp = itemPT.help;*/
+                    List<Help> Lhelp = itemPT.help;
 
                     if (itemPT.languages != null){
                         List<Language> Llanguages = itemPT.languages;
 
                         foreach(Language itemL in Llanguages){
-                            bool required = itemL.required;
-
-                            if (required){
-                                string name = itemL.name;
-                                string md5 = itemL.md5;
-                                Console.WriteLine(required.ToString() + " " + name + " " + md5);
-                            }
+                            leaf = new Leaf(itemL.md5, itemL.name, itemL.required);
+                            checkLeaf(leaf);
                         }     
                     }
-                    
                 }
             }
 
@@ -47,27 +42,22 @@ namespace codeTest
             {
                 /*List<Common> Lcommon2 = itemP.common;
                 List<Lang> Llang= itemP.lang;*/
-                bool required = itemP.required;
-
-                if (required){
-                    string name = itemP.name;
-                    string md5 = itemP.md5;
-                    Console.WriteLine(required.ToString() + " " + name + " " + md5 + ", element: " + myCount);
-                }
-
-                /*foreach(Common itemC in Lcommon2)
-                {
-                    bool required = itemC.required;
-                    string name = itemC.name;
-                    string md5 = itemC.md5;
-                    Console.WriteLine(required.ToString() + " " + name + " " + md5);
-                }*/
-
+                leaf = new Leaf(itemP.md5, itemP.name, itemP.required);
+                checkLeaf(leaf);
                 myCount++;
             }
         }
 
-         public static T _download_serialized_json_data<T>(string url) where T : new() {
+        static bool checkLeaf(Leaf leaf)
+        {
+            if (leaf.required){
+                Console.WriteLine(leaf.required.ToString() + " " + leaf.name + " " + leaf.md5);
+                return true;
+            }
+            return false;
+        }
+
+         public static T downloadSerializedJson<T>(string url) where T : new() {
             using (var w = new WebClient()) {
                 var json_data = string.Empty;
                 // attempt to download JSON data as a string
