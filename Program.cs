@@ -9,12 +9,22 @@ namespace codeTest
     {
         static void Main(string[] args)
         {
-            var url = "http://127.0.0.1/assetsTree.json";
-            var root = downloadSerializedJson<Root>(url);
+            var url = string.Empty;
 
-            loopCommonList(root.common);
-            loopFg(root.fg);
-            loopP6(root.p6);
+            if (args.Length == 0)
+            {
+                url = "http://127.0.0.1/assetsTree.json";
+            }
+
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                var root = downloadSerializedJson<Root>(url);
+
+                loopCommonList(root.common);
+                loopFg(root.fg);
+                loopP6(root.p6);
+            }
+
         }
 
         public static bool loopCommonList(List<Common> Lcommon)
@@ -290,7 +300,7 @@ namespace codeTest
             {
                 using (var webClient = new WebClient())
                 {
-                    webClient.DownloadFile("http://127.0.0.1/common/ptf_Terminal/help/en_GB/keno.html", "keno.html");
+                    webClient.DownloadFile("http://127.0.0.1/common/ptf_Terminal/help/en_GB/keno.html", @"/home/manu/codeGR/keno.html");
                 }
             }
             catch (Exception)
