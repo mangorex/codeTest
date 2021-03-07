@@ -11,7 +11,7 @@ namespace UnitTesting.GettingStarted.Tests
     public class ProgramNunit
     {
         static string url = "http://127.0.0.1/assetsTree.json";
-        static Root root = Program.downloadSerializedJson<Root>(url); 
+        static Root root = Program.downloadSerializedJson<Root>(url);
 
         [Test]
         public void TestDownloadSerializedJsonP6BasicCount()
@@ -38,12 +38,12 @@ namespace UnitTesting.GettingStarted.Tests
         [Test]
         public void TestLoopFgBasic()
         {
-            List<Fg> Lfg= root.fg;
+            List<Fg> Lfg = root.fg;
             bool ok = Program.loopFg(Lfg);
             Console.WriteLine(Lfg.Count.ToString());
             Assert.AreEqual(true, ok);
         }
-        
+
         [Test]
         public void TestLoopP6Basic()
         {
@@ -52,6 +52,20 @@ namespace UnitTesting.GettingStarted.Tests
             Console.WriteLine(Lp6.Count.ToString());
             Assert.AreEqual(true, ok);
         }
-        
-    }
+
+        [Test]
+        public void TestLoopLangBasic()
+        {
+            List<Lang> Llang = root.p6[1].lang;
+            bool ok = Program.loopLang(Llang);
+            Console.WriteLine(Llang.Count.ToString());
+            Assert.AreEqual(true, ok);
+        }
+
+        [Test]
+        public void TestDownloadAFileNoAsync()
+        {
+            Assert.AreEqual(true, Program.downloadAFileNoAsync());
+        }
+}
 }

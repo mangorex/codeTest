@@ -20,12 +20,12 @@ namespace codeTest
         public static bool loopCommonList(List<Common> Lcommon)
         {
             Leaf leaf;
+            string route = string.Empty;
 
             try
             {
                 foreach (Common itemC in Lcommon)
                 {
-
                     if (itemC.ptf_Terminal != null)
                     {
                         foreach (PtfTerminal itemPT in itemC.ptf_Terminal)
@@ -37,7 +37,7 @@ namespace codeTest
                                     if (itemHP.en_GB != null)
                                         foreach (EnGB item in itemHP.en_GB)
                                         {
-                                            leaf = new Leaf(item.md5, item.name, item.required);
+                                            leaf = new Leaf(item.md5, item.name, item.required, "common/ptf_Terminal/help/en_GB");
                                             checkLeaf(leaf);
                                         }
 
@@ -159,7 +159,7 @@ namespace codeTest
                                     leaf = new Leaf(item.md5, item.name, item.required);
                                     checkLeaf(leaf);
                                 }
-                            
+
                             leaf = new Leaf(itemMusi.md5, itemMusi.name, itemMusi.required);
                             checkLeaf(leaf);
 
@@ -214,6 +214,29 @@ namespace codeTest
             return true;
         }
 
+        public static bool loopLang(List<Lang> Llang)
+        {
+            Leaf leaf;
+
+            try
+            {
+                foreach (Lang itemLang in Llang)
+                {
+                    if (itemLang.en != null)
+                        foreach (En item in itemLang.en)
+                        {
+                            leaf = new Leaf(item.md5, item.name, item.required);
+                            checkLeaf(leaf);
+                        }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public static bool loopP6(List<P6> Lp6)
         {
             Leaf leaf;
@@ -223,6 +246,7 @@ namespace codeTest
                 foreach (P6 itemP in Lp6)
                 {
                     loopCommonList(itemP.common);
+                    loopLang(itemP.lang);
                     leaf = new Leaf(itemP.md5, itemP.name, itemP.required);
                     checkLeaf(leaf);
                 }
@@ -238,7 +262,7 @@ namespace codeTest
         {
             if (leaf.required)
             {
-                Console.WriteLine(leaf.md5 + " " + leaf.name + " " + leaf.required.ToString());
+                Console.WriteLine(leaf.md5 + " " + leaf.name + " " + leaf.required.ToString() + " " + leaf.route + "/" + leaf.name);
                 return true;
             }
             return false;
@@ -258,6 +282,22 @@ namespace codeTest
                 // if string with JSON data is not empty, deserialize it to class and return its instance 
                 return !string.IsNullOrEmpty(json_data) ? JsonConvert.DeserializeObject<T>(json_data) : new T();
             }
+        }
+
+        public static bool downloadAFileNoAsync()
+        {
+            try
+            {
+                using (var webClient = new WebClient())
+                {
+                    webClient.DownloadFile("http://127.0.0.1/common/ptf_Terminal/help/en_GB/keno.html", "keno.html");
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 
