@@ -7,25 +7,28 @@ namespace codeTest
 {
     class Program
     {
+        static string url = "http://127.0.0.1/assetsTree.json";
+        static string route = "/home/manu/codeGR/";
+
         static void Main(string[] args)
         {
-            var url = string.Empty;
 
             if (args.Length == 0)
             {
                 url = "http://127.0.0.1/assetsTree.json";
-            } else {
-                downloadAFileNoAsync(args[0], args[1]);
+            }else {
+                url = args[0];
+                // downloadAFileNoAsync(url, args[1]);
             }
 
-            /*if (!string.IsNullOrWhiteSpace(url))
+            if (!string.IsNullOrWhiteSpace(url))
             {
                 var root = downloadSerializedJson<Root>(url);
 
                 loopCommonList(root.common);
                 loopFg(root.fg);
                 loopP6(root.p6);
-            }*/
+            }
 
         }
 
@@ -275,6 +278,7 @@ namespace codeTest
             if (leaf.required)
             {
                 Console.WriteLine(leaf.md5 + " " + leaf.name + " " + leaf.required.ToString() + " " + leaf.route + "/" + leaf.name);
+                Console.WriteLine(url + leaf.route + "/" + leaf.name + " " + route);
                 return true;
             }
             return false;
@@ -288,7 +292,7 @@ namespace codeTest
                 // attempt to download JSON data as a string
                 try
                 {
-                    json_data = w.DownloadString(url);
+                    json_data = w.DownloadString(url + "assetsTree.json");
                 }
                 catch (Exception) { }
                 // if string with JSON data is not empty, deserialize it to class and return its instance 

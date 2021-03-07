@@ -10,7 +10,7 @@ namespace UnitTesting.GettingStarted.Tests
     [TestFixture]
     public class ProgramNunit
     {
-        static string url = "http://127.0.0.1/assetsTree.json";
+        static string url = "http://127.0.0.1/";
         static Root root = Program.downloadSerializedJson<Root>(url);
 
         [Test]
