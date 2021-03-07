@@ -15,7 +15,7 @@ namespace codeTest
     class Program
     {
         static string url = "http://127.0.0.1/";
-        static string route = "/home/manu/codeGR/";
+        static string path = "/home/manu/codeGR/";
 
         static void Main(string[] args)
         {
@@ -286,7 +286,7 @@ namespace codeTest
             if (leaf.required)
             {
                 Console.WriteLine(leaf.md5 + " " + leaf.name + " " + leaf.required.ToString() + " " + leaf.route + "/" + leaf.name);
-                Console.WriteLine(url + leaf.route + "/" + leaf.name + " " + route);
+                Console.WriteLine(url + leaf.route + "/" + leaf.name + " " + path);
                 // downloadAFileNoAsync(url + leaf.route + "/" + leaf.name);
                 return true;
             }
@@ -309,19 +309,16 @@ namespace codeTest
             }
         }
 
-        public static bool downloadAFileAsync(string url, string pathest)
+        public static bool downloadAFileAsync(AllDataToDownload allDataDown)
         {
             try
             {
                 bool downloadFile = true;
-                string nameFile = "keno.html";
-                if (string.IsNullOrWhiteSpace(route))
-                    route = pathest;
 
-                string fullPathName = route + nameFile;
-                System.IO.Directory.CreateDirectory(Path.GetDirectoryName(fullPathName));
+                System.IO.Directory.CreateDirectory(Path.GetDirectoryName(allDataDown.pathDownload));
+                string fullPathName = allDataDown.pathDownload + allDataDown.nameFile;
 
-                if (File.Exists(fullPathName) && checkMD5(fullPathName) == checkMD5(fullPathName))
+                if (File.Exists(fullPathName) && allDataDown.md5 == checkMD5(fullPathName))
                     downloadFile = false;
 
                 if (downloadFile)
@@ -333,7 +330,7 @@ namespace codeTest
                         {
                             Console.WriteLine(@"Downloading files. Please wait...");
                             webClient.DownloadFileAsync(
-                                new System.Uri(url + nameFile),
+                                new System.Uri(url + allDataDown.nameFile),
                                 @"" + fullPathName
                             );
                         }

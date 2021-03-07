@@ -66,7 +66,13 @@ namespace UnitTesting.GettingStarted.Tests
         [Test]
         public void TestDownloadAFileAsync()
         {
-            Assert.AreEqual(true, Program.downloadAFileAsync("http://127.0.0.1/common/ptf_Terminal/help/en_GB/", "/home/manu/codeGR/"));
+            AllDataToDownload allDataDown = new AllDataToDownload(
+                "fd632797a9adb10d068868f86a2b6951 ", 
+                "http://127.0.0.1/common/ptf_Terminal/help/en_GB/",
+                  "roulette.html ", "/home/manu/codeGR/"
+            );
+
+            Assert.AreEqual(true, Program.downloadAFileAsync(allDataDown));
         }
     }
 }
