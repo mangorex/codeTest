@@ -12,12 +12,9 @@ namespace codeTest
             var url = "http://127.0.0.1/assetsTree.json";
             var root = downloadSerializedJson<Root>(url);
 
-            List<Common> Lcommon = root.common;
-            List<Fg> Lfg = root.fg;
-            List<P6> Lp6 = root.p6;
-
-            loopCommonList(Lcommon);
-            loopFg(Lfg);
+            loopCommonList(root.common);
+            loopFg(root.fg);
+            loopP6(root.p6);
         }
 
         public static bool loopCommonList(List<Common> Lcommon)
@@ -28,6 +25,7 @@ namespace codeTest
             {
                 foreach (Common itemC in Lcommon)
                 {
+
                     if (itemC.ptf_Terminal != null)
                     {
                         foreach (PtfTerminal itemPT in itemC.ptf_Terminal)
@@ -56,6 +54,7 @@ namespace codeTest
                                 }
                         }
                     }
+
                     if (itemC.src != null)
                     {
                         foreach (Src itemSrc in itemC.src)
@@ -117,6 +116,76 @@ namespace codeTest
                                 }
                         }
                     }
+
+                    if (itemC.explosion != null)
+                        foreach (Explosion item in itemC.explosion)
+                        {
+                            leaf = new Leaf(item.md5, item.name, item.required);
+                            checkLeaf(leaf);
+                        }
+
+                    if (itemC.efectos != null)
+                    {
+                        foreach (Efecto itemEfe in itemC.efectos)
+                        {
+                            if (itemEfe.bola != null)
+                                foreach (Bola item in itemEfe.bola)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+                            if (itemEfe.varios != null)
+                                foreach (Vario item in itemEfe.varios)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+                        }
+                    }
+
+                    if (itemC.musica != null)
+                    {
+                        foreach (Musica itemMusi in itemC.musica)
+                        {
+                            if (itemMusi.main_game != null)
+                                foreach (MainGame item in itemMusi.main_game)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+                            if (itemMusi.main_game_results != null)
+                                foreach (MainGameResult item in itemMusi.main_game_results)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+                            
+                            leaf = new Leaf(itemMusi.md5, itemMusi.name, itemMusi.required);
+                            checkLeaf(leaf);
+
+                            if (itemMusi.main_game_paytable != null)
+                                foreach (MainGamePaytable item in itemMusi.main_game_paytable)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+                        }
+                    }
+
+                    if (itemC.intro != null)
+                        foreach (Intro item in itemC.intro)
+                        {
+                            leaf = new Leaf(item.md5, item.name, item.required);
+                            checkLeaf(leaf);
+                        }
+
+                    if (itemC.gamePanel != null)
+                        foreach (GamePanel item in itemC.gamePanel)
+                        {
+                            leaf = new Leaf(item.md5, item.name, item.required);
+                            checkLeaf(leaf);
+                        }
+
                 }
             }
             catch (Exception)
@@ -128,8 +197,6 @@ namespace codeTest
 
         public static bool loopFg(List<Fg> LFg)
         {
-            Leaf leaf;
-
             try
             {
                 foreach (Fg itemFg in LFg)
@@ -155,8 +222,7 @@ namespace codeTest
             {
                 foreach (P6 itemP in Lp6)
                 {
-                    /*List<Common> Lcommon2 = itemP.common;
-                    List<Lang> Llang= itemP.lang;*/
+                    loopCommonList(itemP.common);
                     leaf = new Leaf(itemP.md5, itemP.name, itemP.required);
                     checkLeaf(leaf);
                 }
