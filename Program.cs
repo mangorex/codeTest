@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using System.ComponentModel;
 using System.Threading;
 using Newtonsoft.Json;
+using ShellProgressBar;
+
 
 namespace codeTest
 {
@@ -307,25 +309,6 @@ namespace codeTest
             }
         }
 
-        public static bool downloadAFileNoAsync(string url, string routeTest)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(route))
-                    route = routeTest;
-
-                using (var webClient = new WebClient())
-                {
-                    webClient.DownloadFile(url + "keno.html", @"" + route + "keno.html");
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
-        }
-
         public static bool downloadAFileAsync(string url, string pathest)
         {
             try
@@ -338,20 +321,22 @@ namespace codeTest
                 string fullPathName = route + nameFile;
                 System.IO.Directory.CreateDirectory(Path.GetDirectoryName(fullPathName));
 
-                if ( File.Exists(fullPathName) && checkMD5(fullPathName) == checkMD5(fullPathName))
-                    downloadFile =false;
-                
+                if (File.Exists(fullPathName) && checkMD5(fullPathName) == checkMD5(fullPathName))
+                    downloadFile = false;
+
                 if (downloadFile)
                 {
-                    Thread thread = new Thread(() => {
-                    using (var webClient = new WebClient())
+                    Console.Write("Downloading files... ");
+                    Thread thread = new Thread(() =>
                     {
-                        Console.WriteLine(@"Downloading file:");
-                        webClient.DownloadFileAsync(
-                            new System.Uri(url + nameFile),
-                            @"" + fullPathName
-                        );
-                    }
+                        using (var webClient = new WebClient())
+                        {
+                            Console.WriteLine(@"Downloading files. Please wait...");
+                            webClient.DownloadFileAsync(
+                                new System.Uri(url + nameFile),
+                                @"" + fullPathName
+                            );
+                        }
                     });
                     thread.Start();
                 }
@@ -363,7 +348,7 @@ namespace codeTest
                 Console.Write(e);
                 return false;
             }
-
+            Console.WriteLine("Done.");
             return true;
         }
 
@@ -377,7 +362,7 @@ namespace codeTest
                 }
             }
         }
-       
+
     }
 
 
