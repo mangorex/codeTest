@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Net;
-using Newtonsoft.Json;
+using System.Text;
 using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+using System.ComponentModel;
+using System.Threading;
+using Newtonsoft.Json;
 
 namespace codeTest
 {
@@ -16,7 +21,9 @@ namespace codeTest
             if (args.Length == 0)
             {
                 url = "http://127.0.0.1/assetsTree.json";
-            }else {
+            }
+            else
+            {
                 url = args[0];
             }
 
@@ -300,19 +307,16 @@ namespace codeTest
             }
         }
 
-        public static bool downloadAFileNoAsync(string url="")
+        public static bool downloadAFileNoAsync(string url, string routeTest)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(url))
-                    url = "http://127.0.0.1/common/ptf_Terminal/help/en_GB/";
-
                 if (string.IsNullOrWhiteSpace(route))
-                    route = "/home/manu/codeGR/";
+                    route = routeTest;
 
                 using (var webClient = new WebClient())
                 {
-                    webClient.DownloadFile(url + "keno.html", @""+route + "keno.html");
+                    webClient.DownloadFile(url + "keno.html", @"" + route + "keno.html");
                 }
             }
             catch (Exception)
@@ -321,6 +325,61 @@ namespace codeTest
             }
             return true;
         }
+
+        public static bool downloadAFileAsync(string url, string pathest)
+        {
+            try
+            {
+                bool downloadFile = true;
+                string nameFile = "keno.html";
+                if (string.IsNullOrWhiteSpace(route))
+                    route = pathest;
+
+                string fullPathName = route + nameFile;
+                System.IO.Directory.CreateDirectory(Path.GetDirectoryName(fullPathName));
+
+                if ( File.Exists(fullPathName) && checkMD5(fullPathName) == checkMD5(fullPathName))
+                    downloadFile =false;
+                
+                if (downloadFile)
+                {
+                    Thread thread = new Thread(() => {
+                    using (var webClient = new WebClient())
+                    {
+                        Console.WriteLine(@"Downloading file:");
+                        webClient.DownloadFileAsync(
+                            new System.Uri(url + nameFile),
+                            @"" + fullPathName
+                        );
+                    }
+                    });
+                    thread.Start();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Was not able to download file!");
+                Console.Write(e);
+                return false;
+            }
+
+            return true;
+        }
+
+        public static string checkMD5(string filename)
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(filename))
+                {
+                    return Encoding.Default.GetString(md5.ComputeHash(stream));
+                }
+            }
+        }
+       
     }
+
+
 
 }

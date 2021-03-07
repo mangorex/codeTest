@@ -63,10 +63,16 @@ namespace UnitTesting.GettingStarted.Tests
             Assert.AreEqual(true, ok);
         }
 
+        // [Test]
+        // public void TestDownloadAFileNoAsync()
+        // {
+        //     Assert.AreEqual(true, Program.downloadAFileNoAsync("http://127.0.0.1/common/ptf_Terminal/help/en_GB/", "/home/manu/codeGR/"));
+        // }
+        
         [Test]
-        public void TestDownloadAFileNoAsync()
+        public void TestDownloadAFileAsync()
         {
-            Assert.AreEqual(true, Program.downloadAFileNoAsync());
+            Assert.AreEqual(true, Program.downloadAFileAsync("http://127.0.0.1/common/ptf_Terminal/help/en_GB/", "/home/manu/codeGR/"));
         }
     }
 }
