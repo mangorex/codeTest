@@ -11,7 +11,6 @@ namespace UnitTesting.GettingStarted.Tests
     public class ProgramNunit
     {
         static string url = "http://127.0.0.1/";
-        static string route = "/home/manu/codeGR/";
         static Root root = Program.downloadSerializedJson<Root>(url);
 
         [Test]
@@ -58,7 +57,7 @@ namespace UnitTesting.GettingStarted.Tests
         public void TestLoopLangBasic()
         {
             List<Lang> Llang = root.p6[1].lang;
-            bool ok = Program.loopLang(Llang);
+            bool ok = Program.loopLang(Llang, "archive/p6/");
             Console.WriteLine(Llang.Count.ToString());
             Assert.AreEqual(true, ok);
         }
@@ -67,9 +66,11 @@ namespace UnitTesting.GettingStarted.Tests
         public void TestDownloadAFileAsync()
         {
             AllDataToDownload allDataDown = new AllDataToDownload(
-                "fd632797a9adb10d068868f86a2b6951 ", 
-                "http://127.0.0.1/common/ptf_Terminal/help/en_GB/",
-                  "roulette.html ", "/home/manu/codeGR/"
+                "4262186789c88657ddeaef6acbaaa45f",
+                "http://127.0.0.1/archive/common/ptf_Terminal/help/en_GB/",
+                "roulette.html", 
+                "home/manu/codeGR/files/"
+                //"home/manu/codeGR/files/archive/common/ptf_Terminal/help/en_GB/"
             );
 
             Assert.AreEqual(true, Program.downloadAFileAsync(allDataDown));

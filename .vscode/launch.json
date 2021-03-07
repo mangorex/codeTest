@@ -14,7 +14,7 @@
             "preLaunchTask": "build",
             "OS-COMMENT4": "If you have changed target frameworks, make sure to update the program path.",
             "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/codeTest.dll",
-            "args": ["http://127.0.0.1/", "/home/manu/codeGR/"],
+            "args": ["http://127.0.0.1/", "/home/manu/codeGR/files/"],
             "cwd": "${workspaceFolder}",
             "OS-COMMENT5": "For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console",
             "console": "internalConsole",

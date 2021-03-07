@@ -15,14 +15,14 @@ namespace codeTest
     class Program
     {
         static string url = "http://127.0.0.1/";
-        static string path = "/home/manu/codeGR/";
+        static string path = "/home/manu/codeGR/files/";
 
         static void Main(string[] args)
         {
 
             if (args.Length == 0)
             {
-                url = "http://127.0.0.1/assetsTree.json";
+                url = "http://127.0.0.1";
             }
             else
             {
@@ -40,127 +40,143 @@ namespace codeTest
 
         }
 
-        public static bool loopCommonList(List<Common> Lcommon)
+        public static bool loopCommonList(List<Common> Lcommon, string commonString1 = "")
         {
             Leaf leaf;
-            string route = string.Empty;
+            string path = string.Empty;
+            if (string.IsNullOrWhiteSpace(commonString1))
+            {
+                commonString1 = "archive/";
+            }
 
+            commonString1 += "common/";
+
+            string commonString2 = string.Empty;
             try
             {
                 foreach (Common itemC in Lcommon)
                 {
                     if (itemC.ptf_Terminal != null)
                     {
+                        commonString1 += "ptf_Terminal/";
                         foreach (PtfTerminal itemPT in itemC.ptf_Terminal)
                         {
                             if (itemPT.help != null)
                             {
+                                commonString2 = commonString1 + "help/";
                                 foreach (Help itemHP in itemPT.help)
                                 {
+                                    leaf = new Leaf(itemHP.md5, itemHP.name, itemHP.required, commonString2);
+                                    checkLeaf(leaf);
+
                                     if (itemHP.en_GB != null)
                                         foreach (EnGB item in itemHP.en_GB)
                                         {
-                                            leaf = new Leaf(item.md5, item.name, item.required, "common/ptf_Terminal/help/en_GB");
+                                            leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "en_GB/");
                                             checkLeaf(leaf);
                                         }
-
-                                    leaf = new Leaf(itemHP.md5, itemHP.name, itemHP.required);
-                                    checkLeaf(leaf);
                                 }
                             }
 
                             if (itemPT.languages != null)
+                            {
+                                commonString2 = commonString1 + "languages/";
                                 foreach (Language item in itemPT.languages)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2);
                                     checkLeaf(leaf);
                                 }
+                            }
                         }
                     }
 
                     if (itemC.src != null)
                     {
+                        commonString2 = commonString1 + "src/";
                         foreach (Src itemSrc in itemC.src)
                         {
                             if (itemSrc.fizzbuzz != null)
                                 foreach (Fizzbuzz item in itemSrc.fizzbuzz)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "fizzbuzz/");
                                     checkLeaf(leaf);
                                 }
 
                             if (itemSrc.campoDeMinas != null)
                                 foreach (CampoDeMina item in itemSrc.campoDeMinas)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "campoDeMinas/");
                                     checkLeaf(leaf);
                                 }
 
                             if (itemSrc.math != null)
                                 foreach (Math item in itemSrc.math)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "math/");
                                     checkLeaf(leaf);
                                 }
 
                             if (itemSrc.leapyear != null)
                                 foreach (Leapyear item in itemSrc.leapyear)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "leapyear/");
                                     checkLeaf(leaf);
                                 }
 
                             if (itemSrc.lcd != null)
                                 foreach (Lcd item in itemSrc.lcd)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "lcd/");
                                     checkLeaf(leaf);
                                 }
 
                             if (itemSrc.stringCalculator != null)
                                 foreach (StringCalculator item in itemSrc.stringCalculator)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "stringCalculator/");
                                     checkLeaf(leaf);
                                 }
 
                             if (itemSrc.statistics != null)
                                 foreach (Statistic item in itemSrc.statistics)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "statistics/");
                                     checkLeaf(leaf);
                                 }
 
                             if (itemSrc.fechas != null)
                                 foreach (Fecha item in itemSrc.fechas)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "fechas/");
                                     checkLeaf(leaf);
                                 }
                         }
                     }
 
                     if (itemC.explosion != null)
+                    {
+                        commonString2 = commonString1 + "explosion/";
                         foreach (Explosion item in itemC.explosion)
                         {
-                            leaf = new Leaf(item.md5, item.name, item.required);
+                            leaf = new Leaf(item.md5, item.name, item.required, commonString2);
                             checkLeaf(leaf);
                         }
-
+                    }
                     if (itemC.efectos != null)
                     {
+                        commonString2 = commonString1 + "efectos/";
                         foreach (Efecto itemEfe in itemC.efectos)
                         {
                             if (itemEfe.bola != null)
                                 foreach (Bola item in itemEfe.bola)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "bola/");
                                     checkLeaf(leaf);
                                 }
                             if (itemEfe.varios != null)
                                 foreach (Vario item in itemEfe.varios)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "varios/");
                                     checkLeaf(leaf);
                                 }
                         }
@@ -168,28 +184,29 @@ namespace codeTest
 
                     if (itemC.musica != null)
                     {
+                        commonString2 = commonString1 + "musica/";
                         foreach (Musica itemMusi in itemC.musica)
                         {
+                            leaf = new Leaf(itemMusi.md5, itemMusi.name, itemMusi.required, commonString2);
+                            checkLeaf(leaf);
+
                             if (itemMusi.main_game != null)
                                 foreach (MainGame item in itemMusi.main_game)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "main_game/");
                                     checkLeaf(leaf);
                                 }
                             if (itemMusi.main_game_results != null)
                                 foreach (MainGameResult item in itemMusi.main_game_results)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "main_game_results/");
                                     checkLeaf(leaf);
                                 }
-
-                            leaf = new Leaf(itemMusi.md5, itemMusi.name, itemMusi.required);
-                            checkLeaf(leaf);
 
                             if (itemMusi.main_game_paytable != null)
                                 foreach (MainGamePaytable item in itemMusi.main_game_paytable)
                                 {
-                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    leaf = new Leaf(item.md5, item.name, item.required, commonString2 + "main_game_paytable/");
                                     checkLeaf(leaf);
                                 }
                         }
@@ -198,14 +215,14 @@ namespace codeTest
                     if (itemC.intro != null)
                         foreach (Intro item in itemC.intro)
                         {
-                            leaf = new Leaf(item.md5, item.name, item.required);
+                            leaf = new Leaf(item.md5, item.name, item.required, commonString1 + "intro/");
                             checkLeaf(leaf);
                         }
 
                     if (itemC.gamePanel != null)
                         foreach (GamePanel item in itemC.gamePanel)
                         {
-                            leaf = new Leaf(item.md5, item.name, item.required);
+                            leaf = new Leaf(item.md5, item.name, item.required, commonString1 + "gamePanel/");
                             checkLeaf(leaf);
                         }
 
@@ -222,11 +239,13 @@ namespace codeTest
         {
             try
             {
+
                 foreach (Fg itemFg in LFg)
                 {
                     if (itemFg.common != null)
                     {
-                        loopCommonList(itemFg.common);
+                        string commonString = "archive/fg/";
+                        loopCommonList(itemFg.common, commonString);
                     }
                 }
             }
@@ -237,7 +256,7 @@ namespace codeTest
             return true;
         }
 
-        public static bool loopLang(List<Lang> Llang)
+        public static bool loopLang(List<Lang> Llang, string commonString)
         {
             Leaf leaf;
 
@@ -248,7 +267,7 @@ namespace codeTest
                     if (itemLang.en != null)
                         foreach (En item in itemLang.en)
                         {
-                            leaf = new Leaf(item.md5, item.name, item.required);
+                            leaf = new Leaf(item.md5, item.name, item.required, commonString + "en/");
                             checkLeaf(leaf);
                         }
                 }
@@ -268,9 +287,10 @@ namespace codeTest
             {
                 foreach (P6 itemP in Lp6)
                 {
-                    loopCommonList(itemP.common);
-                    loopLang(itemP.lang);
-                    leaf = new Leaf(itemP.md5, itemP.name, itemP.required);
+                    string commonString = "archive/p6/";
+                    loopCommonList(itemP.common, commonString);
+                    loopLang(itemP.lang, commonString);
+                    leaf = new Leaf(itemP.md5, itemP.name, itemP.required, commonString);
                     checkLeaf(leaf);
                 }
             }
@@ -285,9 +305,17 @@ namespace codeTest
         {
             if (leaf.required)
             {
-                Console.WriteLine(leaf.md5 + " " + leaf.name + " " + leaf.required.ToString() + " " + leaf.route + "/" + leaf.name);
-                Console.WriteLine(url + leaf.route + "/" + leaf.name + " " + path);
-                // downloadAFileNoAsync(url + leaf.route + "/" + leaf.name);
+                Console.WriteLine(leaf.md5 + " " + leaf.name + " " + leaf.required.ToString() + " " + leaf.path + leaf.name);
+                // Console.WriteLine(url + leaf.path + leaf.name + "         " + path);
+                AllDataToDownload allDataDown = new AllDataToDownload(
+                    leaf.md5,           // md5
+                    url + leaf.path,    // Url to download
+                    leaf.name,          // Name file
+                    path                // Path to download without structure of folders
+                    // path + leaf.path              
+                );
+                Console.WriteLine("URL Filename: " + allDataDown.urlFile + allDataDown.nameFile + ", pathDownload: " + allDataDown.pathDownload);
+                downloadAFileAsync(allDataDown);
                 return true;
             }
             return false;
@@ -324,18 +352,14 @@ namespace codeTest
                 if (downloadFile)
                 {
                     Console.Write("Downloading files... ");
-                    Thread thread = new Thread(() =>
+                    using (var webClient = new WebClient())
                     {
-                        using (var webClient = new WebClient())
-                        {
-                            Console.WriteLine(@"Downloading files. Please wait...");
-                            webClient.DownloadFileAsync(
-                                new System.Uri(url + allDataDown.nameFile),
-                                @"" + fullPathName
-                            );
-                        }
-                    });
-                    thread.Start();
+                        Console.WriteLine(@"Downloading files. Please wait...");
+                        webClient.DownloadFileAsync(
+                            new System.Uri(allDataDown.urlFile + allDataDown.nameFile),
+                            @"" + fullPathName
+                        );
+                    }
                 }
 
             }
