@@ -11,16 +11,17 @@ namespace UnitTesting.GettingStarted.Tests
     public class ProgramNunit
     {
         static string url = "http://127.0.0.1/";
+        static string route = "/home/manu/codeGR/";
         static Root root = Program.downloadSerializedJson<Root>(url);
 
         [Test]
-        public void TestDownloadSerializedJsonP6BasicCount()
+        public void TestP6BasicCount()
         {
             Assert.AreEqual(3, root.p6.Count);
         }
 
         [Test]
-        public void TestDownloadSerializedJsonP6Basic()
+        public void TestP6BasicRequired()
         {
             Console.WriteLine(root.p6.Count.ToString());
             Assert.AreEqual(true, root.p6[2].required);
@@ -67,5 +68,5 @@ namespace UnitTesting.GettingStarted.Tests
         {
             Assert.AreEqual(true, Program.downloadAFileNoAsync());
         }
-}
+    }
 }

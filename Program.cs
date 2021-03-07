@@ -7,7 +7,7 @@ namespace codeTest
 {
     class Program
     {
-        static string url = "http://127.0.0.1/assetsTree.json";
+        static string url = "http://127.0.0.1/";
         static string route = "/home/manu/codeGR/";
 
         static void Main(string[] args)
@@ -18,7 +18,6 @@ namespace codeTest
                 url = "http://127.0.0.1/assetsTree.json";
             }else {
                 url = args[0];
-                // downloadAFileNoAsync(url, args[1]);
             }
 
             if (!string.IsNullOrWhiteSpace(url))
@@ -279,6 +278,7 @@ namespace codeTest
             {
                 Console.WriteLine(leaf.md5 + " " + leaf.name + " " + leaf.required.ToString() + " " + leaf.route + "/" + leaf.name);
                 Console.WriteLine(url + leaf.route + "/" + leaf.name + " " + route);
+                // downloadAFileNoAsync(url + leaf.route + "/" + leaf.name);
                 return true;
             }
             return false;
@@ -300,7 +300,7 @@ namespace codeTest
             }
         }
 
-        public static bool downloadAFileNoAsync(string url="", string route = "")
+        public static bool downloadAFileNoAsync(string url="")
         {
             try
             {
