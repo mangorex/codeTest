@@ -13,10 +13,11 @@ namespace codeTest
             var root = downloadSerializedJson<Root>(url);
 
             List<Common> Lcommon = root.common;
-            // List<Fg> Lfg = root.fg;
+            List<Fg> Lfg = root.fg;
             List<P6> Lp6 = root.p6;
 
             loopCommonList(Lcommon);
+            loopFg(Lfg);
         }
 
         public static bool loopCommonList(List<Common> Lcommon)
@@ -27,53 +28,115 @@ namespace codeTest
             {
                 foreach (Common itemC in Lcommon)
                 {
-                    foreach (PtfTerminal itemPT in itemC.ptf_Terminal)
+                    if (itemC.ptf_Terminal != null)
                     {
-                        if (itemPT.help != null)
+                        foreach (PtfTerminal itemPT in itemC.ptf_Terminal)
                         {
-                            foreach (Help itemHP in itemPT.help)
+                            if (itemPT.help != null)
                             {
-                                if (itemHP.en_GB != null)
+                                foreach (Help itemHP in itemPT.help)
                                 {
-                                    foreach (EnGB itemGB in itemHP.en_GB)
-                                    {
-                                        leaf = new Leaf(itemGB.md5, itemGB.name, itemGB.required);
-                                        checkLeaf(leaf);
-                                    }
+                                    if (itemHP.en_GB != null)
+                                        foreach (EnGB item in itemHP.en_GB)
+                                        {
+                                            leaf = new Leaf(item.md5, item.name, item.required);
+                                            checkLeaf(leaf);
+                                        }
+
+                                    leaf = new Leaf(itemHP.md5, itemHP.name, itemHP.required);
+                                    checkLeaf(leaf);
                                 }
-
-                                leaf = new Leaf(itemHP.md5, itemHP.name, itemHP.required);
-                                checkLeaf(leaf);
                             }
-                        }
 
-                        if (itemPT.languages != null)
-                        {
-                            foreach (Language itemL in itemPT.languages)
-                            {
-                                leaf = new Leaf(itemL.md5, itemL.name, itemL.required);
-                                checkLeaf(leaf);
-                            }
+                            if (itemPT.languages != null)
+                                foreach (Language item in itemPT.languages)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
                         }
                     }
-
                     if (itemC.src != null)
                     {
                         foreach (Src itemSrc in itemC.src)
                         {
-                            
-                            foreach (Fizzbuzz itemFbz in itemSrc.fizzbuzz)
-                            {
-                                leaf = new Leaf(itemFbz.md5, itemFbz.name, itemFbz.required);
-                                checkLeaf(leaf);
-                            }
+                            if (itemSrc.fizzbuzz != null)
+                                foreach (Fizzbuzz item in itemSrc.fizzbuzz)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
 
-                            foreach (CampoDeMina itemCpMin in itemSrc.campoDeMinas)
-                            {
-                                leaf = new Leaf(itemCpMin.md5, itemCpMin.name, itemCpMin.required);
-                                checkLeaf(leaf);
-                            }
+                            if (itemSrc.campoDeMinas != null)
+                                foreach (CampoDeMina item in itemSrc.campoDeMinas)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+
+                            if (itemSrc.math != null)
+                                foreach (Math item in itemSrc.math)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+
+                            if (itemSrc.leapyear != null)
+                                foreach (Leapyear item in itemSrc.leapyear)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+
+                            if (itemSrc.lcd != null)
+                                foreach (Lcd item in itemSrc.lcd)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+
+                            if (itemSrc.stringCalculator != null)
+                                foreach (StringCalculator item in itemSrc.stringCalculator)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+
+                            if (itemSrc.statistics != null)
+                                foreach (Statistic item in itemSrc.statistics)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
+
+                            if (itemSrc.fechas != null)
+                                foreach (Fecha item in itemSrc.fechas)
+                                {
+                                    leaf = new Leaf(item.md5, item.name, item.required);
+                                    checkLeaf(leaf);
+                                }
                         }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool loopFg(List<Fg> LFg)
+        {
+            Leaf leaf;
+
+            try
+            {
+                foreach (Fg itemFg in LFg)
+                {
+                    if (itemFg.common != null)
+                    {
+                        loopCommonList(itemFg.common);
                     }
                 }
             }

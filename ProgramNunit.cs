@@ -35,6 +35,14 @@ namespace UnitTesting.GettingStarted.Tests
             Assert.AreEqual(true, ok);
         }
 
+        [Test]
+        public void TestLoopFgBasic()
+        {
+            List<Fg> Lfg= root.fg;
+            bool ok = Program.loopFg(Lfg);
+            Console.WriteLine(Lfg.Count.ToString());
+            Assert.AreEqual(true, ok);
+        }
         
         [Test]
         public void TestLoopP6Basic()
