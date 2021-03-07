@@ -14,18 +14,16 @@ namespace codeTest
             if (args.Length == 0)
             {
                 url = "http://127.0.0.1/assetsTree.json";
-            } else {
-                downloadAFileNoAsync(args[0], args[1]);
             }
 
-            /*if (!string.IsNullOrWhiteSpace(url))
+            if (!string.IsNullOrWhiteSpace(url))
             {
                 var root = downloadSerializedJson<Root>(url);
 
                 loopCommonList(root.common);
                 loopFg(root.fg);
                 loopP6(root.p6);
-            }*/
+            }
 
         }
 
@@ -296,19 +294,13 @@ namespace codeTest
             }
         }
 
-        public static bool downloadAFileNoAsync(string url="", string route = "")
+        public static bool downloadAFileNoAsync()
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(url))
-                    url = "http://127.0.0.1/common/ptf_Terminal/help/en_GB/";
-
-                if (string.IsNullOrWhiteSpace(route))
-                    route = "/home/manu/codeGR/";
-
                 using (var webClient = new WebClient())
                 {
-                    webClient.DownloadFile(url + "keno.html", @""+route + "keno.html");
+                    webClient.DownloadFile("http://127.0.0.1/common/ptf_Terminal/help/en_GB/keno.html", @"/home/manu/codeGR/keno.html");
                 }
             }
             catch (Exception)
