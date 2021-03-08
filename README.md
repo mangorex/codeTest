@@ -24,7 +24,7 @@ It is about the automatic download of files developed in C# with a source json d
 
 ### Points not completed:
 * **Code with the best style of code (I think)**
-* Data entry form, available for when there are no parameters
+* Data entry form, available when there are no parameters
 * Download progress bar
 * **Use of Moq**
 * **Implement that can deserialize the json when a folder is empty on the web server, fixing the null pointer exception error in the leaf**
