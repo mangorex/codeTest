@@ -5,7 +5,7 @@
 
 It is about the automatic download of files developed in C# with a source json downloaded from a web server, which has to be deserializated, maintaining the folder structure
 
-### Architecture and technologies used:
+### Architecture and technologies used
 * **Ubuntu 20.04**
 * **Net core 3.1.406**
 * Nginx Web server
